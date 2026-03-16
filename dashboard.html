@@ -1,0 +1,2292 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard - Atlas Capital</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      .crypto-icon.btc {
+        color: #f7931a;
+      }
+      .crypto-icon.eth {
+        color: #627eea;
+      }
+      .crypto-icon.usdt {
+        color: #26a17b;
+      }
+      .crypto-icon.bnb {
+        color: #f3ba2f;
+      }
+      .crypto-icon.sol {
+        color: #00ffbd;
+      }
+      .crypto-icon.ada {
+        color: #0033ad;
+      }
+      .investment-item.pending-request {
+        border-left: 3px solid var(--accent-warning);
+        background: rgba(245, 158, 11, 0.05);
+      }
+
+      .investment-item.pending-request .investment-crypto {
+        opacity: 0.7;
+        position: relative;
+      }
+
+      .investment-item.pending-request .investment-crypto::after {
+        content: "⏳";
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        font-size: 16px;
+        background: var(--accent-warning);
+        border-radius: 50%;
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+        50% {
+          transform: scale(1.1);
+          opacity: 0.8;
+        }
+      }
+
+      .investment-status-badge {
+        display: inline-block;
+        padding: 4px 10px;
+        border-radius: 4px;
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .investment-status-badge.pending {
+        background: rgba(245, 158, 11, 0.1);
+        color: var(--accent-warning);
+        border: 1px solid var(--accent-warning);
+      }
+
+      .investment-status-badge.approved {
+        background: rgba(16, 185, 129, 0.1);
+        color: var(--accent-primary);
+        border: 1px solid var(--accent-primary);
+      }
+
+      .investment-status-badge.active {
+        background: rgba(59, 130, 246, 0.1);
+        color: var(--accent-secondary);
+        border: 1px solid var(--accent-secondary);
+      }
+
+      /* Dashboard Tickets Styles */
+      .tickets-list-dashboard {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .ticket-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px;
+        background: var(--bg-secondary);
+        border-radius: 8px;
+        border: 1px solid var(--border-color);
+        transition: all 0.2s ease;
+        cursor: pointer;
+      }
+
+      .ticket-item:hover {
+        border-color: var(--accent-primary);
+        background: rgba(59, 130, 246, 0.05);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+
+      .ticket-item-info {
+        flex: 1;
+      }
+
+      .ticket-item-info h4 {
+        font-size: 15px;
+        font-weight: 600;
+        margin: 0 0 6px 0;
+        color: var(--text-primary);
+      }
+
+      .ticket-item-meta {
+        display: flex;
+        gap: 16px;
+        font-size: 12px;
+        color: var(--text-secondary);
+      }
+
+      .ticket-category {
+        padding: 2px 8px;
+        background: rgba(59, 130, 246, 0.1);
+        border-radius: 4px;
+        color: var(--accent-secondary);
+        font-weight: 500;
+      }
+
+      /* Ticket Status Badges */
+      .ticket-status-badge.small {
+        font-size: 11px;
+        padding: 4px 8px;
+        border-radius: 12px;
+        font-weight: 600;
+        text-transform: capitalize;
+        white-space: nowrap;
+      }
+
+      .ticket-status-badge.open {
+        background: rgba(245, 158, 11, 0.15);
+        color: #f59e0b;
+        border: 1px solid #f59e0b;
+      }
+
+      .ticket-status-badge.in-progress,
+      .ticket-status-badge.in_progress {
+        background: rgba(59, 130, 246, 0.15);
+        color: #3b82f6;
+        border: 1px solid #3b82f6;
+      }
+
+      .ticket-status-badge.resolved {
+        background: rgba(16, 185, 129, 0.15);
+        color: #10b981;
+        border: 1px solid #10b981;
+      }
+
+      .ticket-status-badge.closed {
+        background: rgba(107, 114, 128, 0.15);
+        color: #6b7280;
+        border: 1px solid #6b7280;
+      }
+
+      /* Section Header with View All Link */
+      .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      .view-all-link {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        color: var(--accent-secondary);
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 500;
+        padding: 6px 12px;
+        border-radius: 6px;
+        transition: all 0.2s ease;
+        cursor: pointer;
+      }
+
+      .view-all-link:hover {
+        background: rgba(59, 130, 246, 0.1);
+        color: var(--accent-primary);
+      }
+
+      /* Tickets Empty State */
+      .tickets-empty {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 48px 24px;
+        text-align: center;
+        background: var(--bg-secondary);
+        border-radius: 8px;
+        border: 1px dashed var(--border-color);
+      }
+
+      .tickets-empty svg {
+        stroke: var(--text-secondary);
+        margin-bottom: 16px;
+        opacity: 0.5;
+      }
+
+      .tickets-empty p {
+        color: var(--text-primary);
+        font-weight: 500;
+        margin-bottom: 4px;
+      }
+
+      .tickets-empty small {
+        color: var(--text-secondary);
+        font-size: 13px;
+      }
+
+      /* Status Icon */
+      .status-icon {
+        font-size: 16px;
+        line-height: 1;
+      }
+
+      /* Ticket Card Styles for Support Page */
+      .ticket-card {
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 16px;
+        margin-bottom: 12px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .ticket-card:hover {
+        border-color: var(--accent-primary);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+
+      .ticket-card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 8px;
+      }
+
+      .ticket-card-title {
+        font-weight: 600;
+        color: var(--text-primary);
+        margin-bottom: 4px;
+      }
+
+      .ticket-card-id {
+        font-size: 11px;
+        color: var(--text-secondary);
+      }
+
+      .ticket-card-meta {
+        font-size: 11px;
+        color: var(--text-secondary);
+        margin-bottom: 8px;
+      }
+
+      .ticket-card-message {
+        font-size: 13px;
+        color: var(--text-secondary);
+        margin-bottom: 8px;
+        line-height: 1.5;
+      }
+
+      .ticket-card-footer {
+        margin-top: 8px;
+        padding-top: 8px;
+        border-top: 1px solid var(--border-color);
+      }
+
+      .ticket-card-replies {
+        font-size: 11px;
+        color: var(--accent-secondary);
+      }
+
+      /* Ticket Status Badge (regular size) */
+      .ticket-status-badge {
+        display: inline-block;
+        padding: 4px 12px;
+        border-radius: 4px;
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .ticket-status-badge.open {
+        background: rgba(245, 158, 11, 0.1);
+        color: var(--accent-warning);
+        border: 1px solid var(--accent-warning);
+      }
+
+      .ticket-status-badge.in-progress,
+      .ticket-status-badge.in_progress {
+        background: rgba(59, 130, 246, 0.1);
+        color: var(--accent-secondary);
+        border: 1px solid var(--accent-secondary);
+      }
+
+      .ticket-status-badge.resolved {
+        background: rgba(16, 185, 129, 0.1);
+        color: var(--accent-primary);
+        border: 1px solid var(--accent-primary);
+      }
+
+      .ticket-status-badge.closed {
+        background: rgba(107, 114, 128, 0.1);
+        color: var(--text-secondary);
+        border: 1px solid var(--text-secondary);
+      }
+
+      /* Ticket Messages */
+      .ticket-messages {
+        max-height: 300px;
+        overflow-y: auto;
+        padding: 16px;
+        background: var(--bg-tertiary);
+        border-radius: 8px;
+        margin-bottom: 16px;
+      }
+
+      .ticket-message {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 16px;
+      }
+
+      .ticket-message:last-child {
+        margin-bottom: 0;
+      }
+
+      .ticket-message.admin {
+        flex-direction: row-reverse;
+      }
+
+      .message-avatar {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: var(--accent-primary);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        font-size: 14px;
+        flex-shrink: 0;
+      }
+
+      .ticket-message.admin .message-avatar {
+        background: var(--accent-secondary);
+      }
+
+      .message-content {
+        flex: 1;
+        max-width: calc(100% - 44px);
+      }
+
+      .message-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 4px;
+      }
+
+      .message-author {
+        font-weight: 600;
+        font-size: 13px;
+        color: var(--text-primary);
+      }
+
+      .message-time {
+        font-size: 11px;
+        color: var(--text-secondary);
+      }
+
+      .message-text {
+        background: var(--bg-secondary);
+        padding: 8px 12px;
+        border-radius: 8px;
+        font-size: 13px;
+        color: var(--text-primary);
+        line-height: 1.5;
+      }
+
+      .ticket-message.admin .message-text {
+        background: rgba(59, 130, 246, 0.1);
+      }
+
+      /* Ticket Details Modal */
+      .ticket-details {
+        margin-bottom: 24px;
+      }
+
+      .ticket-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 16px;
+      }
+
+      .ticket-id {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text-secondary);
+      }
+
+      .ticket-info {
+        display: flex;
+        gap: 24px;
+        margin-bottom: 16px;
+        padding: 12px;
+        background: var(--bg-tertiary);
+        border-radius: 8px;
+      }
+
+      .ticket-info-item {
+        font-size: 13px;
+        color: var(--text-primary);
+      }
+
+      .ticket-info-item strong {
+        color: var(--text-secondary);
+        margin-right: 8px;
+      }
+
+      .ticket-original-message {
+        padding: 16px;
+        background: var(--bg-tertiary);
+        border-radius: 8px;
+      }
+
+      .ticket-original-message strong {
+        display: block;
+        margin-bottom: 8px;
+        color: var(--text-secondary);
+        font-size: 13px;
+      }
+
+      .ticket-original-message p {
+        color: var(--text-primary);
+        font-size: 14px;
+        line-height: 1.6;
+        margin: 0;
+      }
+
+      /* Ticket Reply Form */
+      .ticket-reply-form {
+        margin-top: 16px;
+      }
+
+      .ticket-reply-form textarea {
+        width: 100%;
+        padding: 12px;
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        color: var(--text-primary);
+        font-size: 13px;
+        resize: vertical;
+        margin-bottom: 12px;
+      }
+
+      .ticket-reply-form textarea:focus {
+        outline: none;
+        border-color: var(--accent-primary);
+      }
+
+      /* Hidden Class */
+      .hidden {
+        display: none !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="dashboard-layout">
+      <aside class="sidebar">
+        <div class="logo">
+          <svg width="32" height="32" viewBox="0 0 40 40" fill="none">
+            <path
+              d="M20 0L40 10V30L20 40L0 30V10L20 0Z"
+              fill="currentColor"
+              opacity="0.1"
+            />
+            <path d="M20 8L32 14V26L20 32L8 26V14L20 8Z" fill="currentColor" />
+          </svg>
+          <h2>Atlas Capital</h2>
+        </div>
+
+        <nav class="nav">
+          <a href="#" class="nav-item active" data-section="dashboard">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+            >
+              <rect
+                x="3"
+                y="3"
+                width="18"
+                height="18"
+                rx="2"
+                stroke-width="2"
+              />
+              <path
+                d="M9 3v18M15 3v18M3 9h18M3 15h18"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+            </svg>
+            Dashboard
+          </a>
+          <a href="#" class="nav-item" data-section="profile">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+            >
+              <path
+                d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+              <circle cx="12" cy="7" r="4" stroke-width="2" />
+            </svg>
+            Profile
+          </a>
+          <a href="#" class="nav-item" data-section="support">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+            >
+              <path
+                d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            Support
+          </a>
+          <a href="#" class="nav-item" data-section="withdrawals">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+            >
+              <path
+                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm3.5-9H13V7h-2v4H8.5l3.5 3.5 3.5-3.5z"
+                stroke-width="2"
+              />
+            </svg>
+            Withdrawals
+          </a>
+        </nav>
+
+        <div class="user-section">
+          <div class="user-info">
+            <div class="user-avatar" id="userAvatar">U</div>
+            <div>
+              <div class="user-name" id="userName">Loading...</div>
+              <div class="user-email" id="userEmail">Loading...</div>
+            </div>
+          </div>
+          <button class="btn-logout" id="logoutBtn">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+            >
+              <path
+                d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+            </svg>
+            Logout
+          </button>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <header class="dashboard-header">
+          <div>
+            <h1 id="pageTitle">Hey There!</h1>
+            <p class="subtitle" id="pageSubtitle">
+              Welcome to your real-time analysis dashboard.
+            </p>
+          </div>
+        </header>
+
+        <div class="btn-controls">
+          <button
+            class="btn-invest btn-deposit openInvestModal"
+            id="openInvestModal1"
+          >
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+            >
+              <circle cx="12" cy="12" r="10" stroke-width="2" />
+              <line
+                x1="12"
+                y1="8"
+                x2="12"
+                y2="16"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+              <line
+                x1="8"
+                y1="12"
+                x2="16"
+                y2="12"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+            </svg>
+            Deposit
+          </button>
+
+          <!-- Add data-section attribute -->
+          <button
+            class="btn-withdraw btn-invest"
+            data-section="withdrawals"
+            id="withdrawNavBtn"
+          >
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+            >
+              <line
+                x1="8"
+                y1="12"
+                x2="16"
+                y2="12"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+            </svg>
+            Withdraw
+          </button>
+        </div>
+
+        <!-- Loading State -->
+        <div class="loading-state" id="loadingState">
+          <div class="spinner"></div>
+        </div>
+
+        <!-- Dashboard Content -->
+        <div class="dashboard-content hidden" id="dashboardContent">
+          <!-- Stats Cards -->
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-header">
+                <span class="stat-label">Total Investment</span>
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                >
+                  <line
+                    x1="12"
+                    y1="1"
+                    x2="12"
+                    y2="23"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                  <path
+                    d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </div>
+              <div class="stat-value" id="investmentAmount">$0.00</div>
+              <div class="stat-description">Initial deposit</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-header">
+                <span class="stat-label">Current Balance</span>
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                >
+                  <rect
+                    x="1"
+                    y="4"
+                    width="22"
+                    height="16"
+                    rx="2"
+                    stroke-width="2"
+                  />
+                  <line x1="1" y1="10" x2="23" y2="10" stroke-width="2" />
+                </svg>
+              </div>
+              <div class="stat-value" id="currentBalance">$0.00</div>
+              <div class="stat-description">Portfolio value</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-header">
+                <span class="stat-label">Profit / Loss</span>
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                >
+                  <line
+                    x1="12"
+                    y1="5"
+                    x2="12"
+                    y2="19"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                  <polyline
+                    points="5 12 12 19 19 12"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </div>
+              <div class="stat-value" id="profitLoss">$0.00</div>
+              <div class="stat-change" id="profitPercentage">0%</div>
+            </div>
+          </div>
+
+          <!-- Investment Plans Section -->
+          <div class="section-card" id="investmentPlansSection">
+            <div class="section-header">
+              <h3>Choose Investment Plan</h3>
+              <p class="text-secondary">
+                Select a plan to continue with your investment
+              </p>
+            </div>
+
+            <div class="plans-grid">
+              <!-- Custom Plan -->
+              <div
+                class="plan-card"
+                onclick="selectPlan('custom', 'Default', 0, 0)"
+              >
+                <div class="plan-badge">Flexible</div>
+                <h3>Custom Plan</h3>
+                <div class="plan-roi">Default</div>
+                <p class="plan-period">Per Day</p>
+                <div class="plan-min">No minimum</div>
+                <ul class="plan-features">
+                  <li>✓ Daily earnings</li>
+                  <li>✓ Withdraw anytime</li>
+                  <li>✓ Flexible amount</li>
+                </ul>
+                <button
+                  class="btn-select-plan"
+                  onclick="
+                    event.stopPropagation();
+                    selectPlan('custom', 'Default', 0, 0);
+                  "
+                >
+                  Select Plan
+                </button>
+              </div>
+
+              <!-- Bronze Plan -->
+              <div
+                class="plan-card"
+                onclick="selectPlan('bronze', 'Bronze Plan', 5000, 20000)"
+              >
+                <h3>Bronze Plan</h3>
+                <div class="plan-roi">3% - 5%</div>
+                <p class="plan-period">Per Day</p>
+                <div class="plan-min">$5,000 - $20,000</div>
+                <ul class="plan-features">
+                  <li>✓ Perfect for beginners</li>
+                  <li>✓ Low risk portfolio</li>
+                  <li>✓ Daily earnings</li>
+                  <li>✓ 24/7 Support</li>
+                </ul>
+                <button
+                  class="btn-select-plan"
+                  onclick="
+                    event.stopPropagation();
+                    selectPlan('bronze', 'Bronze Plan', 5000, 20000);
+                  "
+                >
+                  Select Plan
+                </button>
+              </div>
+
+              <div
+                class="plan-card featured"
+                onclick="selectPlan('silver', 'Silver Plan', 20000, 50000)"
+              >
+                <div class="plan-badge recommended" style="display: none">
+                  🔥 Recommended
+                </div>
+                <h3>Silver Plan</h3>
+                <div class="plan-roi">7% - 10%</div>
+                <p class="plan-period">Per Day</p>
+                <div class="plan-min">$20,000 - $50,000</div>
+                <ul class="plan-features">
+                  <li>✓ Balanced portfolio</li>
+                  <li>✓ Medium risk options</li>
+                  <li>✓ Weekly payouts</li>
+                  <li>✓ Priority support</li>
+                  <li>✓ Market analysis</li>
+                </ul>
+                <button
+                  class="btn-select-plan"
+                  onclick="
+                    event.stopPropagation();
+                    selectPlan('silver', 'Silver Plan', 20000, 50000);
+                  "
+                >
+                  Select Plan
+                </button>
+              </div>
+
+              <!-- Gold Plan -->
+              <div
+                class="plan-card"
+                onclick="selectPlan('gold', 'Gold Plan', 50000, 100000)"
+              >
+                <h3>Gold Plan</h3>
+                <div class="plan-roi">10% - 13%</div>
+                <p class="plan-period">Per Day</p>
+                <div class="plan-min">$50,000 - $100,000</div>
+                <ul class="plan-features">
+                  <li>✓ Aggressive growth</li>
+                  <li>✓ Advanced strategies</li>
+                  <li>✓ Priority support</li>
+                  <li>✓ VIP events access</li>
+                  <li>✓ Personal manager</li>
+                </ul>
+                <button
+                  class="btn-select-plan"
+                  onclick="
+                    event.stopPropagation();
+                    selectPlan('gold', 'Gold Plan', 50000, 100000);
+                  "
+                >
+                  Select Plan
+                </button>
+              </div>
+
+              <!-- Premium Plan -->
+              <div
+                class="plan-card"
+                onclick="selectPlan('premium', 'Premium Plan', 100000, 300000)"
+              >
+                <h3>Premium Plan</h3>
+                <div class="plan-roi">13% - 15%</div>
+                <p class="plan-period">Per Day</p>
+                <div class="plan-min">$100,000 - $300,000</div>
+                <ul class="plan-features">
+                  <li>✓ Maximum returns</li>
+                  <li>✓ Exclusive strategies</li>
+                  <li>✓ Dedicated account manager</li>
+                  <li>✓ Early access to new features</li>
+                  <li>✓ Custom investment strategy</li>
+                </ul>
+                <button
+                  class="btn-select-plan"
+                  onclick="
+                    event.stopPropagation();
+                    selectPlan('premium', 'Premium Plan', 100000, 300000);
+                  "
+                >
+                  Select Plan
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Investment Form Section (Hidden until plan selected) -->
+          <div
+            class="section-card hidden"
+            id="investmentFormSection"
+            style="margin-top: 24px"
+          >
+            <div class="section-header">
+              <h3>Complete Your Investment</h3>
+              <button class="btn-secondary btn-sm" onclick="backToPlans()">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                >
+                  <path
+                    d="M19 12H5M12 19l-7-7 7-7"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                </svg>
+                Change Plan
+              </button>
+            </div>
+
+            <!-- Selected Plan Summary -->
+            <div class="selected-plan-summary" id="selectedPlanSummary">
+              <div class="plan-badge-large" id="selectedPlanName">
+                Silver Plan
+              </div>
+              <div class="plan-details">
+                <div class="plan-detail-item">
+                  <span class="detail-label">ROI Range</span>
+                  <span class="detail-value" id="selectedPlanRoi"
+                    >7% - 10%</span
+                  >
+                </div>
+                <div class="plan-detail-item">
+                  <span class="detail-label">Min Investment</span>
+                  <span class="detail-value" id="selectedPlanMin">$20,000</span>
+                </div>
+                <div class="plan-detail-item">
+                  <span class="detail-label">Max Investment</span>
+                  <span class="detail-value" id="selectedPlanMax">$50,000</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Investment Form -->
+            <form id="investmentForm" class="investment-form">
+              <div class="form-group">
+                <label>Select Cryptocurrency</label>
+                <div class="crypto-grid" id="cryptoGrid">
+                  <!-- Crypto options will be populated by JavaScript -->
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="investAmount">Investment Amount (USD)</label>
+                <div class="input-with-icon">
+                  <span style="display: none" class="input-icon">$</span>
+                  <input
+                    type="number"
+                    id="investAmount"
+                    name="amount"
+                    min="0"
+                    step="0.01"
+                    placeholder="Enter amount"
+                    required
+                    oninput="validateAmount()"
+                  />
+                </div>
+                <small class="input-hint" id="amountHint" style="display: none"
+                  >Minimum: $0</small
+                >
+                <div class="amount-error hidden" id="amountError"></div>
+              </div>
+
+              <div
+                class="wallet-address-container hidden"
+                id="walletAddressContainer"
+              >
+                <label>Send Payment To:</label>
+                <div class="wallet-address-box" id="selectedWalletAddress">
+                  <span class="wallet-address" id="walletAddressText"></span>
+                  <button
+                    type="button"
+                    class="copy-wallet-btn"
+                    onclick="copySelectedWalletAddress()"
+                  >
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                    >
+                      <rect
+                        x="9"
+                        y="9"
+                        width="13"
+                        height="13"
+                        rx="2"
+                        ry="2"
+                        stroke-width="2"
+                      />
+                      <path
+                        d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                        stroke-width="2"
+                      />
+                    </svg>
+                  </button>
+                </div>
+                <small class="wallet-note"
+                  >Send exactly the amount you entered above to this
+                  address</small
+                >
+              </div>
+
+              <div class="modal-error" id="investmentError"></div>
+
+              <div class="form-actions">
+                <button
+                  type="submit"
+                  class="btn-primary btn-large"
+                  id="submitInvest"
+                  disabled
+                >
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                  >
+                    <polyline
+                      points="20 6 9 17 4 12"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                    />
+                  </svg>
+                  Confirm Investment
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Replace your old openInvestModal button with this -->
+          <button class="btn-invest" id="showPlansBtn" style="display: none">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+            >
+              <circle cx="12" cy="12" r="10" stroke-width="2" />
+              <line
+                x1="12"
+                y1="8"
+                x2="12"
+                y2="16"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+              <line
+                x1="8"
+                y1="12"
+                x2="16"
+                y2="12"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+            </svg>
+            New Investment
+          </button>
+
+          <!-- Investment Section -->
+          <div class="section-card" style="margin-bottom: 32px">
+            <div class="section-header">
+              <h3>Make Investment</h3>
+              <button class="btn-invest openInvestModal" id="openInvestModal2">
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                >
+                  <circle cx="12" cy="12" r="10" stroke-width="2" />
+                  <line
+                    x1="12"
+                    y1="8"
+                    x2="12"
+                    y2="16"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                  <line
+                    x1="8"
+                    y1="12"
+                    x2="16"
+                    y2="12"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                </svg>
+                New Investment
+              </button>
+            </div>
+
+            <!-- Investment History -->
+            <div class="investments-list" id="investmentsList">
+              <div class="investment-empty" id="investmentsEmpty">
+                <svg
+                  width="48"
+                  height="48"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                >
+                  <circle cx="12" cy="12" r="10" stroke-width="2" />
+                  <path
+                    d="M12 6v6l4 2"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                </svg>
+                <p>No investments yet</p>
+                <small>Start investing in cryptocurrency</small>
+              </div>
+            </div>
+          </div>
+
+          <!-- Payment History -->
+          <div class="section-card">
+            <div class="section-header">
+              <h3>Payment History</h3>
+              <span class="badge" id="paymentCount">0 payments</span>
+            </div>
+
+            <div class="payments-empty" id="paymentsEmpty">
+              <svg
+                width="48"
+                height="48"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+              >
+                <circle cx="12" cy="12" r="10" stroke-width="2" />
+                <line
+                  x1="12"
+                  y1="16"
+                  x2="12"
+                  y2="12"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
+                <line
+                  x1="12"
+                  y1="8"
+                  x2="12.01"
+                  y2="8"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
+              </svg>
+              <p>No payment records yet</p>
+              <small>Your payment history will appear here</small>
+            </div>
+
+            <div class="payments-list hidden" id="paymentsList"></div>
+          </div>
+
+          <!-- Support Tickets Section (on Dashboard) -->
+          <div class="section-card" style="margin-top: 24px">
+            <div class="section-header">
+              <h3>Recent Support Tickets</h3>
+              <a href="#" class="view-all-link" data-section="support">
+                <span>NEW TICKET</span>
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                >
+                  <path
+                    d="M5 12h14M12 5l7 7-7 7"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </a>
+            </div>
+
+            <div class="tickets-list-dashboard" id="dashboardTicketsList">
+              <div class="tickets-empty" id="dashboardTicketsEmpty">
+                <svg
+                  width="48"
+                  height="48"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                >
+                  <path
+                    d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+                <p>No support tickets</p>
+                <small>Your tickets will appear here</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Profile Section -->
+        <div class="profile-content hidden" id="profileContent">
+          <div class="section-card">
+            <div class="section-header">
+              <h3>Account Information</h3>
+              <button class="btn-secondary" id="editProfileBtn">
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                >
+                  <path
+                    d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14l5 5v11a2 2 0 0 0-2 2z"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                  <path
+                    d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                </svg>
+                Edit Profile
+              </button>
+            </div>
+
+            <div class="profile-display" id="profileDisplay">
+              <div class="profile-field">
+                <label>Full Name</label>
+                <div class="profile-value" id="displayName">-</div>
+              </div>
+              <div class="profile-field">
+                <label>Email Address</label>
+                <div class="profile-value" id="displayEmail">-</div>
+              </div>
+              <div class="profile-field">
+                <label>Member Since</label>
+                <div class="profile-value" id="displayDate">-</div>
+              </div>
+            </div>
+
+            <form class="profile-form hidden" id="profileForm">
+              <div class="form-group">
+                <label for="editFullName">Full Name</label>
+                <input
+                  type="text"
+                  id="editFullName"
+                  name="fullName"
+                  placeholder="John Doe"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="editEmail">Email Address</label>
+                <input
+                  type="email"
+                  id="editEmail"
+                  name="email"
+                  placeholder="john@example.com"
+                  required
+                />
+              </div>
+
+              <div class="modal-error" id="profileError"></div>
+
+              <div class="form-actions">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  id="cancelEditProfile"
+                >
+                  Cancel
+                </button>
+                <button type="submit" class="btn btn-primary" id="saveProfile">
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                  >
+                    <path
+                      d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"
+                      stroke-width="2"
+                    />
+                    <polyline points="17 21 17 13 7 13 7 21" stroke-width="2" />
+                    <polyline points="7 3 7 8 15 8" stroke-width="2" />
+                  </svg>
+                  Save Changes
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <div class="section-card" style="margin-top: 24px">
+            <div class="section-header">
+              <h3>Change Password</h3>
+            </div>
+
+            <form class="password-form" id="passwordForm">
+              <div class="form-group">
+                <label for="currentPassword">Current Password</label>
+                <input
+                  type="password"
+                  id="currentPassword"
+                  name="currentPassword"
+                  placeholder="Enter current password"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="newPassword">New Password</label>
+                <input
+                  type="password"
+                  id="newPassword"
+                  name="newPassword"
+                  placeholder="Enter new password"
+                  minlength="6"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="confirmPassword">Confirm New Password</label>
+                <input
+                  type="password"
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  placeholder="Confirm new password"
+                  minlength="6"
+                  required
+                />
+              </div>
+
+              <div class="modal-error" id="passwordError"></div>
+
+              <div class="form-actions">
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  id="changePassword"
+                >
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                  >
+                    <rect
+                      x="3"
+                      y="11"
+                      width="18"
+                      height="11"
+                      rx="2"
+                      ry="2"
+                      stroke-width="2"
+                    />
+                    <path
+                      d="M9 3v18M15 3v18M3 9h18M3 15h18"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                    />
+                  </svg>
+                  Update Password
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Support Section -->
+        <div class="support-content hidden" id="supportContent">
+          <div class="section-card">
+            <div class="section-header">
+              <h3>Support Tickets</h3>
+              <button class="btn-primary" id="createTicketBtn">
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                >
+                  <circle cx="12" cy="12" r="10" stroke-width="2" />
+                  <line
+                    x1="12"
+                    y1="8"
+                    x2="12"
+                    y2="16"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                  <line
+                    x1="8"
+                    y1="12"
+                    x2="16"
+                    y2="12"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                </svg>
+                New Ticket
+              </button>
+            </div>
+
+            <div class="tickets-empty hidden" id="ticketsEmpty">
+              <svg
+                width="48"
+                height="48"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+              >
+                <path
+                  d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <line
+                  x1="9"
+                  y1="10"
+                  x2="15"
+                  y2="10"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
+                <line
+                  x1="9"
+                  y1="14"
+                  x2="12"
+                  y2="14"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
+              </svg>
+              <p>No support tickets</p>
+              <small>Create a ticket if you need assistance</small>
+            </div>
+
+            <div class="tickets-list" id="ticketsList"></div>
+          </div>
+        </div>
+
+        <!-- Withdrawal Section -->
+        <div class="withdrawals-content hidden" id="withdrawalsContent">
+          <div class="section-card">
+            <div class="section-header">
+              <h3>Request Withdrawal</h3>
+            </div>
+
+            <form class="withdrawal-form" id="withdrawalForm">
+              <div class="form-group">
+                <label for="withdrawalAmount">Withdrawal Amount ($)</label>
+                <input
+                  type="number"
+                  id="withdrawalAmount"
+                  name="amount"
+                  placeholder="Enter amount"
+                  min="10"
+                  step="0.01"
+                  required
+                />
+                <small>Minimum: $10</small>
+              </div>
+
+              <div class="form-group">
+                <label for="withdrawalCryptocurrency">Cryptocurrency</label>
+                <select
+                  id="withdrawalCryptocurrency"
+                  name="cryptocurrency"
+                  required
+                >
+                  <option value="">Select cryptocurrency</option>
+                  <option value="BTC">Bitcoin (BTC)</option>
+                  <option value="ETH">Ethereum (ETH)</option>
+                  <option value="USDT">USDT (TRC20)</option>
+                  <option value="BNB">Binance Coin (BNB)</option>
+                  <option value="SOL">Solana (SOL)</option>
+                  <option value="ADA">Cardano (ADA)</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="withdrawalWallet">Wallet Address</label>
+                <input
+                  type="text"
+                  id="withdrawalWallet"
+                  name="walletAddress"
+                  placeholder="Enter your wallet address"
+                  required
+                />
+              </div>
+
+              <div class="modal-error" id="withdrawalError"></div>
+
+              <button type="submit" class="btn btn-primary">
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                >
+                  <path
+                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm3.5-9H13V7h-2v4H8.5l3.5 3.5 3.5-3.5z"
+                    stroke-width="2"
+                  />
+                </svg>
+                Request Withdrawal
+              </button>
+            </form>
+          </div>
+
+          <div class="section-card" style="margin-top: 24px">
+            <div class="section-header">
+              <h3>Withdrawal History</h3>
+              <span class="badge" id="withdrawalCount">0 withdrawals</span>
+            </div>
+
+            <div class="withdrawals-empty" id="withdrawalsEmpty">
+              <svg
+                width="48"
+                height="48"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+              >
+                <circle cx="12" cy="12" r="10" stroke-width="2" />
+                <line
+                  x1="12"
+                  y1="16"
+                  x2="12"
+                  y2="12"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
+                <line
+                  x1="12"
+                  y1="8"
+                  x2="12.01"
+                  y2="8"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
+              </svg>
+              <p>No withdrawal requests yet</p>
+              <small>Your withdrawal history will appear here</small>
+            </div>
+
+            <div class="withdrawals-list hidden" id="withdrawalsList"></div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Investment Modal -->
+    <div class="modal-overlay hidden" id="investmentModal">
+      <div class="modal-container">
+        <div class="modal-header">
+          <h3>New Investment</h3>
+          <button class="modal-close" id="closeInvestModal">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+            >
+              <line
+                x1="18"
+                y1="6"
+                x2="6"
+                y2="18"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+              <line
+                x1="6"
+                y1="6"
+                x2="18"
+                y2="18"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+            </svg>
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <form id="investmentForm">
+            <div class="form-group">
+              <label>Select Cryptocurrency</label>
+              <div class="crypto-grid">
+                <!-- Bitcoin -->
+                <label class="crypto-card">
+                  <input
+                    type="radio"
+                    name="cryptocurrency"
+                    value="BTC"
+                    required
+                  />
+                  <div class="crypto-content">
+                    <div class="crypto-icon btc">₿</div>
+                    <div class="crypto-info">
+                      <div class="crypto-name">Bitcoin</div>
+                      <div class="crypto-symbol">BTC</div>
+                    </div>
+                    <div class="crypto-check">
+                      <svg
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                      >
+                        <polyline
+                          points="20 6 9 17 4 12"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                  <div class="crypto-wallet-display" id="wallet-BTC">
+                    <small>Send payment to:</small>
+                    <div class="wallet-address-box">
+                      <span class="wallet-address" data-address=""
+                        >Not configured</span
+                      >
+                      <button
+                        type="button"
+                        class="copy-wallet-btn"
+                        onclick="copyWalletAddress('BTC')"
+                      >
+                        <svg
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                        >
+                          <rect
+                            x="9"
+                            y="9"
+                            width="13"
+                            height="13"
+                            rx="2"
+                            ry="2"
+                            stroke-width="2"
+                          />
+                          <path
+                            d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                            stroke-width="2"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </label>
+
+                <!-- Ethereum -->
+                <label class="crypto-card">
+                  <input type="radio" name="cryptocurrency" value="ETH" />
+                  <div class="crypto-content">
+                    <div class="crypto-icon eth">Ξ</div>
+                    <div class="crypto-info">
+                      <div class="crypto-name">Ethereum</div>
+                      <div class="crypto-symbol">ETH</div>
+                    </div>
+                    <div class="crypto-check">
+                      <svg
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                      >
+                        <polyline
+                          points="20 6 9 17 4 12"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                  <div class="crypto-wallet-display" id="wallet-ETH">
+                    <small>Send payment to:</small>
+                    <div class="wallet-address-box">
+                      <span class="wallet-address" data-address=""
+                        >Not configured</span
+                      >
+                      <button
+                        type="button"
+                        class="copy-wallet-btn"
+                        onclick="copyWalletAddress('ETH')"
+                      >
+                        <svg
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                        >
+                          <rect
+                            x="9"
+                            y="9"
+                            width="13"
+                            height="13"
+                            rx="2"
+                            ry="2"
+                            stroke-width="2"
+                          />
+                          <path
+                            d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                            stroke-width="2"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </label>
+
+                <!-- Tether (USDT) -->
+                <label class="crypto-card">
+                  <input type="radio" name="cryptocurrency" value="USDT" />
+                  <div class="crypto-content">
+                    <div class="crypto-icon usdt">₮</div>
+                    <div class="crypto-info">
+                      <div class="crypto-name">Tether</div>
+                      <div class="crypto-symbol">USDT</div>
+                    </div>
+                    <div class="crypto-check">
+                      <svg
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                      >
+                        <polyline
+                          points="20 6 9 17 4 12"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                  <div class="crypto-wallet-display" id="wallet-USDT">
+                    <small>Send payment to:</small>
+                    <div class="wallet-address-box">
+                      <span class="wallet-address" data-address=""
+                        >Not configured</span
+                      >
+                      <button
+                        type="button"
+                        class="copy-wallet-btn"
+                        onclick="copyWalletAddress('USDT')"
+                      >
+                        <svg
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                        >
+                          <rect
+                            x="9"
+                            y="9"
+                            width="13"
+                            height="13"
+                            rx="2"
+                            ry="2"
+                            stroke-width="2"
+                          />
+                          <path
+                            d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                            stroke-width="2"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </label>
+
+                <!-- Binance Coin -->
+                <label class="crypto-card">
+                  <input type="radio" name="cryptocurrency" value="BNB" />
+                  <div class="crypto-content">
+                    <div class="crypto-icon bnb">B</div>
+                    <div class="crypto-info">
+                      <div class="crypto-name">Binance Coin</div>
+                      <div class="crypto-symbol">BNB</div>
+                    </div>
+                    <div class="crypto-check">
+                      <svg
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                      >
+                        <polyline
+                          points="20 6 9 17 4 12"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                  <div class="crypto-wallet-display" id="wallet-BNB">
+                    <small>Send payment to:</small>
+                    <div class="wallet-address-box">
+                      <span class="wallet-address" data-address=""
+                        >Not configured</span
+                      >
+                      <button
+                        type="button"
+                        class="copy-wallet-btn"
+                        onclick="copyWalletAddress('BNB')"
+                      >
+                        <svg
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                        >
+                          <rect
+                            x="9"
+                            y="9"
+                            width="13"
+                            height="13"
+                            rx="2"
+                            ry="2"
+                            stroke-width="2"
+                          />
+                          <path
+                            d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                            stroke-width="2"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </label>
+
+                <!-- Solana -->
+                <label class="crypto-card">
+                  <input type="radio" name="cryptocurrency" value="SOL" />
+                  <div class="crypto-content">
+                    <div class="crypto-icon sol">◎</div>
+                    <div class="crypto-info">
+                      <div class="crypto-name">Solana</div>
+                      <div class="crypto-symbol">SOL</div>
+                    </div>
+                    <div class="crypto-check">
+                      <svg
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                      >
+                        <polyline
+                          points="20 6 9 17 4 12"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                  <div class="crypto-wallet-display" id="wallet-SOL">
+                    <small>Send payment to:</small>
+                    <div class="wallet-address-box">
+                      <span class="wallet-address" data-address=""
+                        >Not configured</span
+                      >
+                      <button
+                        type="button"
+                        class="copy-wallet-btn"
+                        onclick="copyWalletAddress('SOL')"
+                      >
+                        <svg
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                        >
+                          <rect
+                            x="9"
+                            y="9"
+                            width="13"
+                            height="13"
+                            rx="2"
+                            ry="2"
+                            stroke-width="2"
+                          />
+                          <path
+                            d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                            stroke-width="2"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </label>
+
+                <!-- Cardano -->
+                <label class="crypto-card">
+                  <input type="radio" name="cryptocurrency" value="ADA" />
+                  <div class="crypto-content">
+                    <div class="crypto-icon ada">₳</div>
+                    <div class="crypto-info">
+                      <div class="crypto-name">Cardano</div>
+                      <div class="crypto-symbol">ADA</div>
+                    </div>
+                    <div class="crypto-check">
+                      <svg
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                      >
+                        <polyline
+                          points="20 6 9 17 4 12"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                  <div class="crypto-wallet-display" id="wallet-ADA">
+                    <small>Send payment to:</small>
+                    <div class="wallet-address-box">
+                      <span class="wallet-address" data-address=""
+                        >Not configured</span
+                      >
+                      <button
+                        type="button"
+                        class="copy-wallet-btn"
+                        onclick="copyWalletAddress('ADA')"
+                      >
+                        <svg
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                        >
+                          <rect
+                            x="9"
+                            y="9"
+                            width="13"
+                            height="13"
+                            rx="2"
+                            ry="2"
+                            stroke-width="2"
+                          />
+                          <path
+                            d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                            stroke-width="2"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="investAmount">Investment Amount (USD)</label>
+              <div class="input-with-icon">
+                <!-- <span class="input-icon">$</span> -->
+                <input
+                  type="number"
+                  id="investAmount"
+                  name="amount"
+                  min="100"
+                  step="0.01"
+                  placeholder=""
+                  required
+                />
+              </div>
+              <!-- <small class="input-hint">Minimum investment: $100.00</small> -->
+            </div>
+
+            <div class="modal-error" id="investmentError"></div>
+
+            <div class="modal-actions">
+              <button type="button" class="btn btn-secondary" id="cancelInvest">
+                Cancel
+              </button>
+              <button type="submit" class="btn btn-primary" id="submitInvest">
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                >
+                  <polyline
+                    points="20 6 9 17 4 12"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+                Confirm Payment
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Create Ticket Modal -->
+    <div class="modal-overlay hidden" id="createTicketModal">
+      <div class="modal-container">
+        <div class="modal-header">
+          <h3>Create Support Ticket</h3>
+          <button class="modal-close" id="closeTicketModal">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+            >
+              <line
+                x1="18"
+                y1="6"
+                x2="6"
+                y2="18"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+              <line
+                x1="6"
+                y1="6"
+                x2="18"
+                y2="18"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+            </svg>
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <form id="createTicketForm">
+            <div class="form-group">
+              <label for="ticketSubject">Subject</label>
+              <input
+                type="text"
+                id="ticketSubject"
+                name="subject"
+                placeholder="Brief description of your issue"
+                required
+                maxlength="100"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="ticketCategory">Category</label>
+              <select id="ticketCategory" name="category" required>
+                <option value="">Select a category</option>
+                <option value="investment">Investment Issues</option>
+                <option value="payment">Payment Problems</option>
+                <option value="account">Account Settings</option>
+                <option value="technical">Technical Support</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="ticketMessage">Message</label>
+              <textarea
+                id="ticketMessage"
+                name="message"
+                placeholder="Describe your issue in detail..."
+                required
+                rows="6"
+                maxlength="1000"
+              ></textarea>
+              <small class="input-hint">Maximum 1000 characters</small>
+            </div>
+
+            <div class="modal-error" id="ticketError"></div>
+
+            <div class="modal-actions">
+              <button type="button" class="btn btn-secondary" id="cancelTicket">
+                Cancel
+              </button>
+              <button type="submit" class="btn btn-primary" id="submitTicket">
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                >
+                  <path
+                    d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+                Submit Ticket
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- View Ticket Modal -->
+    <div class="modal-overlay hidden" id="viewTicketModal">
+      <div class="modal-container modal-large">
+        <div class="modal-header">
+          <h3 id="viewTicketSubject">Ticket Details</h3>
+          <button class="modal-close" id="closeViewTicketModal">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+            >
+              <line
+                x1="18"
+                y1="6"
+                x2="6"
+                y2="18"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+              <line
+                x1="6"
+                y1="6"
+                x2="18"
+                y2="18"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+            </svg>
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <div class="ticket-details">
+            <div class="ticket-meta">
+              <span class="ticket-id" id="viewTicketId">Ticket #12345</span>
+              <span class="ticket-status-badge" id="viewTicketStatus"
+                >Open</span
+              >
+            </div>
+            <div class="ticket-info">
+              <div class="ticket-info-item">
+                <strong>Category:</strong>
+                <span id="viewTicketCategory">-</span>
+              </div>
+              <div class="ticket-info-item">
+                <strong>Created:</strong>
+                <span id="viewTicketDate">-</span>
+              </div>
+            </div>
+            <div class="ticket-original-message">
+              <strong>Original Message:</strong>
+              <p id="viewTicketMessage">-</p>
+            </div>
+          </div>
+
+          <hr style="margin: 24px 0; border: 1px solid var(--border-color)" />
+
+          <h4 style="margin-bottom: 16px">Conversation</h4>
+
+          <div class="ticket-messages" id="ticketMessages"></div>
+
+          <form id="replyTicketForm" class="ticket-reply-form">
+            <div class="form-group">
+              <textarea
+                id="replyMessage"
+                name="message"
+                placeholder="Type your reply..."
+                required
+                rows="3"
+                maxlength="1000"
+              ></textarea>
+            </div>
+
+            <div class="modal-error" id="replyError"></div>
+
+            <div class="modal-actions">
+              <button type="submit" class="btn btn-primary">
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                >
+                  <path
+                    d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+                Send Reply
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="core-utils.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
+    <script src="BackendDatabaseAuthPH.js"></script>
+
+    <script src="dashboard.js"></script>
+  </body>
+</html>

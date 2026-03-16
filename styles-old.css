@@ -1,0 +1,1239 @@
+/* Modern Crypto Investment Platform Styles */
+:root {
+  --bg-primary: #0a0f1e;
+  --bg-secondary: #131928;
+  --bg-card: #1a2235;
+  --bg-hover: #222b40;
+
+  --text-primary: #ffffff;
+  --text-secondary: #9ca3af;
+  --text-muted: #6b7280;
+
+  --accent-primary: #10b981;
+  --accent-secondary: #3b82f6;
+  --accent-danger: #ef4444;
+  --accent-warning: #f59e0b;
+
+  --border-color: #2d3748;
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
+
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+}
+
+/* Utility Classes */
+.hidden {
+  display: none !important;
+}
+
+.container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* Logo */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 32px;
+  color: var(--accent-primary);
+}
+
+.logo svg {
+  color: var(--accent-primary);
+}
+
+.logo h1 {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.logo h2 {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+/* Authentication Section */
+.auth-section {
+  width: 100%;
+  max-width: 440px;
+}
+
+.auth-card {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  padding: 40px;
+  box-shadow: var(--shadow-lg);
+}
+
+.form-container h2 {
+  font-size: 28px;
+  margin-bottom: 8px;
+}
+
+.form-subtitle {
+  color: var(--text-secondary);
+  margin-bottom: 32px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px 16px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-size: 15px;
+  transition: all 0.2s;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+.btn {
+  width: 100%;
+  padding: 12px 24px;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-primary {
+  background: var(--accent-primary);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #059669;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.error-message {
+  padding: 12px;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid var(--accent-danger);
+  border-radius: var(--radius-sm);
+  color: var(--accent-danger);
+  font-size: 14px;
+  margin-bottom: 16px;
+  display: none;
+}
+
+.error-message:empty {
+  display: none;
+}
+
+.form-footer {
+  text-align: center;
+  margin-top: 24px;
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+.form-footer a {
+  color: var(--accent-primary);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.form-footer a:hover {
+  text-decoration: underline;
+}
+
+.demo-credentials {
+  margin-top: 24px;
+  padding: 16px;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color);
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.demo-credentials p {
+  margin: 4px 0;
+}
+
+/* Dashboard Layout */
+.dashboard-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 280px;
+  background: var(--bg-card);
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+}
+
+.sidebar .logo {
+  margin-bottom: 40px;
+}
+
+.nav {
+  flex: 1;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+  transition: all 0.2s;
+  margin-bottom: 4px;
+}
+
+.nav-item:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+.nav-item.active {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+.user-section {
+  border-top: 1px solid var(--border-color);
+  padding-top: 20px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--accent-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.user-name {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.user-email {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.btn-logout {
+  width: 100%;
+  padding: 10px 16px;
+  background: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.btn-logout:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+  border-color: var(--text-muted);
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  background: var(--bg-secondary);
+  overflow-y: auto;
+}
+
+.dashboard-header {
+  padding: 32px 40px;
+  border-bottom: 1px solid var(--border-color);
+  background: var(--bg-card);
+}
+
+.dashboard-header h1 {
+  font-size: 32px;
+  margin-bottom: 4px;
+}
+
+.subtitle {
+  color: var(--text-secondary);
+  font-size: 15px;
+}
+
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px;
+  gap: 16px;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--border-color);
+  border-top-color: var(--accent-primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.dashboard-content {
+  padding: 40px;
+}
+
+/* Stats Grid */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.stat-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  transition: all 0.2s;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.stat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.stat-label {
+  color: var(--text-secondary);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.stat-header svg {
+  color: var(--text-muted);
+}
+
+.stat-value {
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.stat-description {
+  color: var(--text-secondary);
+  font-size: 13px;
+}
+
+.stat-change {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  margin-top: 8px;
+}
+
+.stat-change.positive {
+  background: rgba(16, 185, 129, 0.1);
+  color: var(--accent-primary);
+}
+
+.stat-change.negative {
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--accent-danger);
+}
+
+/* Section Card */
+.section-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.section-header h3 {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.badge {
+  padding: 4px 12px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.payments-empty {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-secondary);
+}
+
+.payments-empty svg {
+  margin-bottom: 16px;
+  opacity: 0.5;
+}
+
+.payments-empty p {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.payments-empty small {
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.payments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.payment-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  transition: all 0.2s;
+}
+
+.payment-item:hover {
+  background: var(--bg-hover);
+}
+
+.payment-info h4 {
+  font-size: 15px;
+  margin-bottom: 4px;
+}
+
+.payment-meta {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.payment-amount {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.payment-status {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+.payment-status.completed {
+  background: rgba(16, 185, 129, 0.1);
+  color: var(--accent-primary);
+}
+
+.payment-status.pending {
+  background: rgba(245, 158, 11, 0.1);
+  color: var(--accent-warning);
+}
+
+.payment-status.failed {
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--accent-danger);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .dashboard-layout {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-content {
+    padding: 20px;
+  }
+
+  .dashboard-header {
+    padding: 20px;
+  }
+
+  .auth-card {
+    padding: 24px;
+  }
+}
+
+/* Adding styles for investment modal and crypto cards */
+/* Investment Button */
+.btn-invest {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: var(--accent-primary);
+  border: none;
+  border-radius: var(--radius-sm);
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-invest:hover {
+  background: #059669;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow);
+}
+
+.btn-secondary {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+.btn-secondary:hover {
+  background: var(--bg-hover);
+  transform: translateY(-1px);
+}
+
+/* Investment List */
+.investments-list {
+  margin-top: 20px;
+}
+
+.investment-empty {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-secondary);
+}
+
+.investment-empty svg {
+  margin-bottom: 16px;
+  opacity: 0.5;
+}
+
+.investment-empty p {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.investment-empty small {
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.investment-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  transition: all 0.2s;
+  margin-bottom: 12px;
+}
+
+.investment-item:hover {
+  background: var(--bg-hover);
+}
+
+.investment-details {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.investment-crypto {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.investment-crypto.btc {
+  background: rgba(247, 147, 26, 0.1);
+  color: #f7931a;
+}
+
+.investment-crypto.eth {
+  background: rgba(98, 126, 234, 0.1);
+  color: #627eea;
+}
+
+.investment-crypto.usdt {
+  background: rgba(38, 161, 123, 0.1);
+  color: #26a17b;
+}
+
+.investment-crypto.bnb {
+  background: rgba(243, 186, 47, 0.1);
+  color: #f3ba2f;
+}
+
+.investment-crypto.sol {
+  background: rgba(220, 31, 255, 0.1);
+  color: #dc1fff;
+}
+
+.investment-crypto.ada {
+  background: rgba(0, 51, 173, 0.1);
+  color: #0033ad;
+}
+
+.investment-info h4 {
+  font-size: 15px;
+  margin-bottom: 4px;
+}
+
+.investment-meta {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.investment-amount {
+  text-align: right;
+}
+
+.investment-amount .amount {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.investment-amount .status {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  background: rgba(16, 185, 129, 0.1);
+  color: var(--accent-primary);
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(4px);
+  padding: 20px;
+}
+
+.modal-container {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  max-width: 640px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-lg);
+  animation: modalSlideIn 0.2s ease-out;
+}
+
+@keyframes modalSlideIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.modal-header h3 {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.modal-close {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  transition: all 0.2s;
+}
+
+.modal-close:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+.modal-body {
+  padding: 24px;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.modal-actions .btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.modal-error {
+  padding: 12px;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid var(--accent-danger);
+  border-radius: var(--radius-sm);
+  color: var(--accent-danger);
+  font-size: 14px;
+  margin-top: 16px;
+  display: none;
+}
+
+.modal-error:empty {
+  display: none;
+}
+
+/* Crypto Grid */
+.crypto-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.crypto-card {
+  position: relative;
+  cursor: pointer;
+}
+
+.crypto-card input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.crypto-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: var(--bg-secondary);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  transition: all 0.2s;
+}
+
+.crypto-card:hover .crypto-content {
+  background: var(--bg-hover);
+  border-color: var(--text-muted);
+}
+
+.crypto-card input[type="radio"]:checked + .crypto-content {
+  background: rgba(16, 185, 129, 0.1);
+  border-color: var(--accent-primary);
+}
+
+.crypto-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.crypto-icon.btc {
+  background: rgba(247, 147, 26, 0.1);
+  color: #f7931a;
+}
+
+.crypto-icon.eth {
+  background: rgba(98, 126, 234, 0.1);
+  color: #627eea;
+}
+
+.crypto-icon.usdt {
+  background: rgba(38, 161, 123, 0.1);
+  color: #26a17b;
+}
+
+.crypto-icon.bnb {
+  background: rgba(243, 186, 47, 0.1);
+  color: #f3ba2f;
+}
+
+.crypto-icon.sol {
+  background: rgba(220, 31, 255, 0.1);
+  color: #dc1fff;
+}
+
+.crypto-icon.ada {
+  background: rgba(0, 51, 173, 0.1);
+  color: #0033ad;
+}
+
+.crypto-info {
+  flex: 1;
+}
+
+.crypto-name {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.crypto-symbol {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.crypto-check {
+  opacity: 0;
+  color: var(--accent-primary);
+  transition: opacity 0.2s;
+}
+
+.crypto-card input[type="radio"]:checked ~ .crypto-content .crypto-check {
+  opacity: 1;
+}
+
+/* Updated crypto-wallet styles to work with display-only wallet addresses */
+.crypto-wallet {
+  padding: 12px 16px;
+  background: var(--bg-secondary);
+  border: 2px solid var(--border-color);
+  border-top: none;
+  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+  margin-top: -2px;
+  display: none;
+}
+
+.crypto-card input[type="radio"]:checked ~ .crypto-wallet {
+  border-color: var(--accent-primary);
+  background: rgba(16, 185, 129, 0.05);
+}
+
+.crypto-wallet small {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+  letter-spacing: 0.5px;
+}
+
+.wallet-input {
+  width: 100%;
+  padding: 8px 12px;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-size: 13px;
+  font-family: "Courier New", monospace;
+  transition: all 0.2s;
+}
+
+.wallet-input:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+  background: var(--bg-card);
+}
+
+.wallet-input::placeholder {
+  color: var(--text-muted);
+  font-family: inherit;
+}
+
+/* Added styles for wallet address display boxes */
+.crypto-wallet-display {
+  padding: 12px 16px;
+  background: var(--bg-secondary);
+  border: 2px solid var(--border-color);
+  border-top: none;
+  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+  margin-top: -2px;
+  display: none;
+}
+
+.crypto-card input[type="radio"]:checked ~ .crypto-wallet-display {
+  display: block;
+  border-color: var(--accent-primary);
+  background: rgba(16, 185, 129, 0.05);
+  animation: slideDown 0.3s ease-out;
+}
+
+.crypto-wallet-display small {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+}
+
+.wallet-address-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+}
+
+.wallet-address-box .wallet-address {
+  flex: 1;
+  font-family: "Monaco", "Courier New", monospace;
+  font-size: 12px;
+  color: var(--accent-primary);
+  word-break: break-all;
+  line-height: 1.4;
+}
+
+.copy-wallet-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.copy-wallet-btn:hover {
+  background: var(--accent-primary);
+  border-color: var(--accent-primary);
+  color: white;
+  transform: scale(1.05);
+}
+
+.copy-wallet-btn:active {
+  transform: scale(0.95);
+}
+
+/* Adding wallet address display styles */
+/* Wallet Address Display in Investment Modal */
+.wallet-address-display {
+  margin-bottom: 24px;
+  padding: 20px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.wallet-info-box {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.wallet-info-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-primary);
+  font-size: 15px;
+}
+
+.wallet-info-header svg {
+  color: var(--accent-primary);
+}
+
+.wallet-address-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+}
+
+.wallet-address {
+  flex: 1;
+  font-family: "Monaco", "Courier New", monospace;
+  font-size: 13px;
+  color: var(--accent-primary);
+  word-break: break-all;
+  background: transparent;
+  padding: 0;
+  border: none;
+}
+
+.btn-copy {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.btn-copy:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+  border-color: var(--accent-primary);
+}
+
+.wallet-info-note {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* Input with Icon */
+.input-with-icon {
+  position: relative;
+}
+
+.input-icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+}
+
+/* Home Page Styles */
+
+/* Site wrapper for public pages */
+.site-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Navbar */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: linear-gradient(180deg, rgba(10,15,30,0.6), rgba(10,15,30,0.4));
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+}
+.nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 16px 20px;
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.nav-link {
+  color: var(--text-secondary);
+  text-decoration: none;
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+.nav-link:hover { color: var(--text-primary); background: rgba(255,255,255,0.02); }
+
+/* Hero */
+.hero { padding: 64px 0; }
+.hero-container {
+  display: grid;
+  grid-template-columns: 1fr 480px;
+  gap: 40px;
+  align-items: center;
+}
+.hero-content .hero-badge {
+  display: inline-block;
+  padding: 6px 10px;
+  background: rgba(16,185,129,0.12);
+  color: var(--accent-primary);
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 13px;
+  margin-bottom: 16px;
+}
+.hero-content h1 { font-size: 40px; line-height: 1.05; margin-bottom: 16px; }
+.hero-content p { color: var(--text-secondary); font-size: 16px; margin-bottom: 22px; }
+.hero-actions { display: flex; gap: 12px; }
+.hero .btn { width: auto; padding: 12px 18px; }
+.btn-lg { padding: 14px 20px; font-size: 16px; }
+.hero-visual { display:flex; align-items:center; justify-content:center; }
+.hero-image svg { width: 100%; height: auto; max-width:420px; }
+
+/* Features */
+.features { padding: 56px 0; }
+.features-container h2 { font-size: 28px; margin-bottom: 6px; }
+.section-subtitle { color: var(--text-secondary); margin-bottom: 20px; }
+.features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; }
+.feature-card { background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent); padding: 20px; border-radius: var(--radius-md); border: 1px solid rgba(255,255,255,0.03); }
+.feature-icon { font-size: 28px; margin-bottom: 10px; }
+
+/* Benefits / ROI / CTA */
+.benefits, .roi-section, .cta-section { padding: 48px 0; }
+.benefits-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; }
+.benefit-item { background: var(--bg-card); padding: 18px; border-radius: var(--radius-md); border: 1px solid var(--border-color); }
+.roi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; margin-top: 20px; }
+.roi-card { background: var(--bg-card); padding: 20px; border-radius: var(--radius-md); border: 1px solid var(--border-color); text-align: center; }
+.roi-card.featured { border-color: rgba(16,185,129,0.2); box-shadow: var(--shadow-lg); transform: translateY(-4px); }
+.roi-amount { font-size: 28px; font-weight: 800; margin: 6px 0; color: var(--accent-primary); }
+.roi-period { color: var(--text-secondary); margin-bottom: 12px; }
+
+.cta-section { background: linear-gradient(180deg, rgba(16,185,129,0.04), transparent); text-align: center; border-top: 1px solid rgba(255,255,255,0.02); }
+.cta-container { padding: 28px 0; }
+
+/* Footer */
+.footer { padding: 28px 0; border-top: 1px solid rgba(255,255,255,0.02); }
+.footer-container { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+.footer-links a { color: var(--text-secondary); margin-left: 12px; text-decoration: none; }
+.footer-links a:hover { color: var(--text-primary); }
+
+@media (max-width: 980px) {
+  .hero-container { grid-template-columns: 1fr; }
+  .nav-links { display: none; }
+  .nav-container { padding: 12px 16px; }
+}
+
+/* Ensure navbar buttons are inline */
+.nav-links .btn { width: auto; padding: 8px 14px; }

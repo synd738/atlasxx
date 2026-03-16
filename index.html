@@ -1,0 +1,1312 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Atlas Capital - Professional Crypto Investment Platform</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      .benefits {
+        padding: 120px 0;
+        position: relative;
+        background: linear-gradient(
+          180deg,
+          rgba(10, 10, 18, 0.95) 0%,
+          rgba(15, 20, 40, 0.9) 100%
+        );
+        overflow: hidden;
+      }
+
+      .benefits::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--neon-cyan),
+          transparent
+        );
+        animation: slideRight 3s infinite;
+      }
+
+      .benefits::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--neon-pink),
+          transparent
+        );
+        animation: slideRight 4s infinite reverse;
+      }
+
+      .benefits-container h2 {
+        font-size: 36px;
+        margin-bottom: 12px;
+        font-weight: 900;
+        text-align: center;
+        background: var(--gradient-cyber);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        position: relative;
+        display: inline-block;
+        left: 50%;
+        transform: translateX(-50%);
+        margin-bottom: 48px;
+      }
+
+      .benefits-container h2::after {
+        content: "";
+        position: absolute;
+        bottom: -12px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 3px;
+        background: var(--gradient-cyber);
+        border-radius: 2px;
+        box-shadow: var(--glow-cyan);
+      }
+
+      .benefits-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 32px;
+        margin-top: 40px;
+      }
+
+      .benefit-item {
+        background: rgba(15, 20, 40, 0.8);
+        backdrop-filter: blur(10px);
+        padding: 32px;
+        border-radius: var(--radius-md);
+        border: 1px solid var(--cyber-border);
+        transition: var(--transition-normal);
+        position: relative;
+        overflow: hidden;
+        text-align: center;
+      }
+
+      .benefit-item::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: var(--gradient-cyber);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: var(--transition-normal);
+      }
+
+      .benefit-item::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 100px;
+        height: 100px;
+        background: radial-gradient(
+          circle,
+          rgba(0, 243, 255, 0.1) 0%,
+          transparent 70%
+        );
+        transform: translate(-50%, -50%);
+        opacity: 0;
+        transition: var(--transition-normal);
+        z-index: -1;
+      }
+
+      .benefit-item:hover {
+        transform: translateY(-10px);
+        box-shadow:
+          0 20px 40px rgba(0, 0, 0, 0.5),
+          var(--glow-cyan);
+        border-color: var(--neon-pink);
+      }
+
+      .benefit-item:hover::before {
+        transform: scaleX(1);
+      }
+
+      .benefit-item:hover::after {
+        opacity: 1;
+      }
+
+      .benefit-item h3 {
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 16px;
+        color: var(--neon-cyan);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        position: relative;
+        display: inline-block;
+      }
+
+      .benefit-item h3::before {
+        content: "▸";
+        position: absolute;
+        left: -24px;
+        color: var(--neon-pink);
+        opacity: 0;
+        transition: var(--transition-normal);
+      }
+
+      .benefit-item:hover h3::before {
+        opacity: 1;
+      }
+
+      .benefit-item p {
+        color: var(--text-secondary);
+        line-height: 1.7;
+        font-size: 15px;
+        font-family: "Space Mono", monospace;
+      }
+
+      
+      .benefit-item h3::after {
+        content: "";
+        display: block;
+        width: 40px;
+        height: 40px;
+        margin: 0 auto 20px;
+        background: var(--gradient-cyber);
+        mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>');
+        mask-size: contain;
+        mask-repeat: no-repeat;
+        mask-position: center;
+        border-radius: 50%;
+      }
+
+      /* ==========================================================================
+   ROI SECTION - Investment Plans Cyberpunk
+   ========================================================================== */
+
+      .roi-section {
+        padding: 120px 0;
+        background: linear-gradient(
+          180deg,
+          rgba(15, 20, 40, 0.9) 0%,
+          rgba(10, 10, 18, 0.95) 100%
+        );
+        position: relative;
+        overflow: hidden;
+      }
+
+      .roi-section::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background:
+          radial-gradient(
+            circle at 20% 30%,
+            rgba(0, 243, 255, 0.05) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 80% 70%,
+            rgba(255, 0, 255, 0.05) 0%,
+            transparent 50%
+          );
+        pointer-events: none;
+        z-index: -1;
+      }
+
+      .roi-container h2 {
+        font-size: 36px;
+        margin-bottom: 12px;
+        font-weight: 900;
+        text-align: center;
+        background: var(--gradient-cyber);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        position: relative;
+        display: inline-block;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .section-subtitle {
+        color: var(--text-secondary);
+        margin-bottom: 48px;
+        text-align: center;
+        font-size: 18px;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+        font-family: "Space Mono", monospace;
+        line-height: 1.6;
+      }
+
+      .roi-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 32px;
+        margin-top: 40px;
+      }
+
+      .roi-card {
+        background: rgba(15, 20, 40, 0.8);
+        backdrop-filter: blur(10px);
+        border: 1px solid var(--cyber-border);
+        border-radius: var(--radius-md);
+        padding: 32px;
+        transition: var(--transition-normal);
+        position: relative;
+        overflow: hidden;
+        text-align: center;
+      }
+
+      .roi-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: var(--gradient-cyber);
+        opacity: 0;
+        transition: var(--transition-normal);
+      }
+
+      .roi-card:hover {
+        transform: translateY(-10px);
+        box-shadow:
+          0 20px 40px rgba(0, 0, 0, 0.5),
+          var(--glow-cyan);
+        border-color: var(--neon-pink);
+      }
+
+      .roi-card:hover::before {
+        opacity: 1;
+      }
+
+      .roi-card.featured {
+        border: 1px solid var(--neon-pink);
+        box-shadow:
+          0 0 30px rgba(255, 0, 255, 0.3),
+          inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+        transform: translateY(-5px);
+        position: relative;
+      }
+
+      .roi-card.featured:hover {
+        transform: translateY(-15px);
+        box-shadow:
+          0 30px 50px rgba(0, 0, 0, 0.6),
+          0 0 40px rgba(255, 0, 255, 0.5);
+      }
+
+      .roi-badge {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        background: var(--neon-pink);
+        color: var(--bg-primary);
+        padding: 6px 16px;
+        border-radius: var(--radius-sm);
+        font-size: 11px;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        box-shadow: var(--glow-pink);
+        animation: badgePulse 2s infinite;
+      }
+
+      .roi-card h3 {
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 20px;
+        color: var(--neon-cyan);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        position: relative;
+        display: inline-block;
+      }
+
+      .roi-card h3::after {
+        content: "";
+        position: absolute;
+        bottom: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 40px;
+        height: 2px;
+        background: var(--neon-cyan);
+        box-shadow: var(--glow-cyan);
+      }
+
+      .roi-amount {
+        font-size: 48px;
+        font-weight: 900;
+        margin: 20px 0;
+        background: var(--gradient-matrix);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-family: "Space Mono", monospace;
+        text-shadow: 0 0 30px rgba(0, 243, 255, 0.5);
+        position: relative;
+      }
+
+      .roi-amount::after {
+        content: "ROI";
+        position: absolute;
+        bottom: -20px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 12px;
+        color: var(--neon-green);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-weight: 700;
+        opacity: 0.7;
+      }
+
+      .roi-period {
+        color: var(--text-secondary);
+        margin-bottom: 32px;
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-family: "Space Mono", monospace;
+      }
+
+      .roi-features {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 32px 0;
+        text-align: left;
+      }
+
+      .roi-features li {
+        color: var(--text-secondary);
+        font-size: 14px;
+        margin-bottom: 12px;
+        padding-left: 24px;
+        position: relative;
+        font-family: "Space Mono", monospace;
+        line-height: 1.6;
+      }
+
+      .roi-features li::before {
+        content: "▸";
+        position: absolute;
+        left: 0;
+        color: var(--neon-green);
+        font-weight: 900;
+      }
+
+      .roi-card .btn {
+        width: 100%;
+        padding: 16px;
+        font-size: 15px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        border: 1px solid;
+        transition: var(--transition-normal);
+        font-family: "Space Mono", monospace;
+        text-decoration: none !important;
+        display: inline-block;
+        text-align: center;
+      }
+
+      .roi-card .btn-primary {
+        background: transparent;
+        border-color: var(--neon-cyan);
+        color: var(--neon-cyan);
+        box-shadow: var(--glow-cyan);
+      }
+
+      .roi-card .btn-primary:hover {
+        background: rgba(0, 243, 255, 0.1);
+        transform: translateY(-3px);
+        box-shadow:
+          0 0 25px var(--neon-cyan),
+          var(--glow-cyan);
+      }
+
+      .roi-card .btn-secondary {
+        background: transparent;
+        border-color: var(--neon-purple);
+        color: var(--neon-purple);
+        box-shadow: var(--glow-purple);
+      }
+
+      .roi-card .btn-secondary:hover {
+        background: rgba(157, 0, 255, 0.1);
+        transform: translateY(-3px);
+        box-shadow:
+          0 0 25px var(--neon-purple),
+          var(--glow-purple);
+      }
+
+      .roi-disclaimer {
+        margin-top: 48px;
+        padding: 24px;
+        background: rgba(10, 15, 25, 0.8);
+        border: 1px solid var(--cyber-border);
+        border-radius: var(--radius-md);
+        border-left: 3px solid var(--neon-orange);
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .roi-disclaimer p {
+        color: var(--text-secondary);
+        font-size: 14px;
+        line-height: 1.7;
+        font-family: "Space Mono", monospace;
+        text-align: center;
+      }
+
+      .roi-disclaimer strong {
+        color: var(--neon-orange);
+        font-weight: 700;
+      }
+
+      /* ==========================================================================
+   ANIMATIONS
+   ========================================================================== */
+
+      @keyframes badgePulse {
+        0%,
+        100% {
+          transform: scale(1);
+          box-shadow: var(--glow-pink);
+        }
+        50% {
+          transform: scale(1.05);
+          box-shadow: 0 0 25px var(--neon-pink);
+        }
+      }
+
+      @keyframes slideRight {
+        0% {
+          transform: translateX(-100%);
+        }
+        100% {
+          transform: translateX(100%);
+        }
+      }
+
+      /* Responsive */
+      @media (max-width: 1024px) {
+        .benefits-grid,
+        .roi-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .benefits,
+        .roi-section {
+          padding: 80px 0;
+        }
+
+        .benefits-container h2,
+        .roi-container h2 {
+          font-size: 28px;
+        }
+
+        .benefits-grid,
+        .roi-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .benefit-item,
+        .roi-card {
+          padding: 24px;
+        }
+
+        .roi-amount {
+          font-size: 36px;
+        }
+
+        .section-subtitle {
+          font-size: 16px;
+          padding: 0 20px;
+        }
+      }
+
+      /* Optional: Add animated background for ROI cards */
+      .roi-card.featured::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(
+          45deg,
+          transparent 0%,
+          rgba(0, 243, 255, 0.03) 50%,
+          transparent 100%
+        );
+        z-index: -1;
+        opacity: 0;
+        transition: var(--transition-normal);
+      }
+
+      .roi-card.featured:hover::after {
+        opacity: 1;
+        animation: shimmer 2s infinite;
+      }
+
+      @keyframes shimmer {
+        0% {
+          transform: translateX(-100%);
+        }
+        100% {
+          transform: translateX(100%);
+        }
+      }
+
+      /* Cyber Grid Pattern for Benefits */
+      .benefit-item {
+        position: relative;
+        z-index: 1;
+      }
+
+      .benefit-item::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image:
+          linear-gradient(var(--cyber-border) 1px, transparent 1px),
+          linear-gradient(90deg, var(--cyber-border) 1px, transparent 1px);
+        background-size: 20px 20px;
+        background-position: center center;
+        opacity: 0.1;
+        z-index: -1;
+      }
+
+      /* Hover Effects Enhancement */
+      .benefit-item:hover .roi-card:hover {
+        position: relative;
+      }
+
+      .benefit-item:hover::after,
+      .roi-card:hover::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(
+          45deg,
+          transparent 40%,
+          rgba(0, 243, 255, 0.05) 50%,
+          transparent 60%
+        );
+        animation: shimmerHover 1s forwards;
+        pointer-events: none;
+        z-index: -1;
+      }
+
+      @keyframes shimmerHover {
+        0% {
+          transform: translateX(-100%);
+        }
+        100% {
+          transform: translateX(100%);
+        }
+      }
+
+      /* Price Counter Animation */
+      .roi-amount {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .roi-amount::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.1),
+          transparent
+        );
+        animation: priceShine 3s infinite;
+      }
+
+      @keyframes priceShine {
+        0% {
+          left: -100%;
+        }
+        100% {
+          left: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+
+    <!-- Navigation Bar -->
+<nav class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="site-container nav-container">
+        <div class="logo">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                <path d="M20 0L40 10V30L20 40L0 30V10L20 0Z" fill="currentColor" opacity="0.1" />
+                <path d="M20 8L32 14V26L20 32L8 26V14L20 8Z" fill="currentColor" />
+            </svg>
+            <h1>Atlas Capital</h1>
+        </div>
+        
+        <!-- Desktop Navigation -->
+        <div class="nav-links">
+            <a href="#features" class="nav-link">Features</a>
+            <a href="#benefits" class="nav-link">Benefits</a>
+            <a href="#roi" class="nav-link">ROI</a>
+            <a href="auth.html" class="btn btn-primary" style="text-decoration: none">Get Started</a>
+        </div>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+</nav>
+
+<!-- Mobile Menu Overlay -->
+<div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu-header">
+        <div class="logo">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                <path d="M20 0L40 10V30L20 40L0 30V10L20 0Z" fill="currentColor" opacity="0.1" />
+                <path d="M20 8L32 14V26L20 32L8 26V14L20 8Z" fill="currentColor" />
+            </svg>
+            <h2>Atlas Capital</h2>
+        </div>
+    </div>
+
+    <div class="mobile-menu-items">
+        <!-- Features -->
+        <a href="#features" class="mobile-menu-item" onclick="closeMobileMenu()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="3" y1="9" x2="21" y2="9"></line>
+                <line x1="9" y1="21" x2="9" y2="9"></line>
+            </svg>
+            <span>Features</span>
+        </a>
+
+        <!-- Benefits -->
+        <a href="#benefits" class="mobile-menu-item" onclick="closeMobileMenu()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+            </svg>
+            <span>Benefits</span>
+        </a>
+
+        <!-- Dashboard (goes to auth then dashboard) -->
+        <a href="auth.html" class="mobile-menu-item dashboard" onclick="closeMobileMenu()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="3" y1="9" x2="21" y2="9"></line>
+                <line x1="9" y1="21" x2="9" y2="9"></line>
+            </svg>
+            <span>Dashboard</span>
+        </a>
+
+        <!-- Deposit -->
+        <a href="auth.html" class="mobile-menu-item deposit" onclick="closeMobileMenu()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+                <line x1="1" y1="10" x2="23" y2="10"></line>
+            </svg>
+            <span>Deposit</span>
+        </a>
+
+        <!-- Login / Sign Up -->
+        <a href="auth.html" class="mobile-menu-item login" onclick="closeMobileMenu()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
+                <polyline points="10 17 15 12 10 7"></polyline>
+                <line x1="15" y1="12" x2="3" y2="12"></line>
+            </svg>
+            <span>Login / Sign Up</span>
+        </a>
+    </div>
+
+    <!-- <div class="mobile-menu-footer">
+        <p style="color: var(--text-secondary); font-size: 12px;">© 2024 Atlas Capital</p>
+        <div class="social-links">
+            <a href="#" aria-label="Twitter">𝕏</a>
+            <a href="#" aria-label="Telegram">📱</a>
+            <a href="#" aria-label="Discord">💬</a>
+        </div>
+    </div> -->
+</div>
+    <!-- Navigation Bar -->
+    <nav class="navbar" role="navigation" aria-label="Main navigation" style="display:none">
+      <div class="site-container nav-container">
+        <div class="logo">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+            <path
+              d="M20 0L40 10V30L20 40L0 30V10L20 0Z"
+              fill="currentColor"
+              opacity="0.1"
+            />
+            <path d="M20 8L32 14V26L20 32L8 26V14L20 8Z" fill="currentColor" />
+          </svg>
+          <h1>Atlas Capital</h1>
+        </div>
+        <div class="nav-links">
+          <a href="#features" class="nav-link">Features</a>
+          <a href="#benefits" class="nav-link">Benefits</a>
+          <a href="#roi" class="nav-link">ROI</a>
+          <a
+            href="auth.html"
+            class="btn btn-primary"
+            style="text-decoration: none"
+            >Get Started</a
+          >
+        </div>
+      </div>
+    </nav>
+<!-- Optimized Ticker - Renders Immediately -->
+<div class="ticker-container">
+  <div class="ticker-wrapper">
+    <div class="ticker-content-optimized">
+      <span>🚀 Bitcoin hits new all-time high! • </span>
+      <span>💰 Ethereum 2.0 staking rewards available • </span>
+      <span>📈 Daily profits distributed to investors • </span>
+      <span>🔒 New security features implemented • </span>
+      <span>💎 Limited time bonus: 10% extra on deposits • </span>
+      <span>🌐 Global trading now available 24/7 • </span>
+      <span>⚡ Instant withdrawals processing • </span>
+      <span>🎉 Referral program: Earn 5% commission • </span>
+    </div>
+  </div>
+</div>
+
+<style>
+.ticker-container {
+  background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  height: 48px; 
+  display: flex;
+  align-items: center;
+}
+
+.ticker-wrapper {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.ticker-wrapper.with-mask {
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    black 10%,
+    black 90%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    black 10%,
+    black 90%,
+    transparent 100%
+  );
+}
+
+.ticker-content-optimized {
+  display: inline-block;
+  white-space: nowrap;
+  animation: tickerSlide 25s linear infinite;
+  font-size: 14px;
+  color: white;
+  font-weight: 500;
+  transform: translateZ(0); 
+  backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
+  animation-delay: 0s;
+}
+
+.ticker-content-optimized span {
+  display: inline-block;
+  padding-right: 30px;
+}
+
+@keyframes tickerSlide {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.ticker-content-alt {
+  display: inline-block;
+  white-space: nowrap;
+  animation: tickerSlideAlt 25s linear infinite;
+  font-size: 14px;
+  color: white;
+  font-weight: 500;
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+@keyframes tickerSlideAlt {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+</style>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="site-container hero-container">
+        <div class="hero-content">
+          <div class="hero-badge">Welcome to Atlas Capital</div>
+          <h1>Grow Your Wealth with Secure Crypto Investments</h1>
+          <p>
+            Professional cryptocurrency investment platform with transparent
+            returns, secure wallets, and expert management. Start investing with
+            confidence.
+          </p>
+          <div class="hero-actions">
+            <a
+              href="auth.html"
+              class="btn btn-primary btn-lg"
+              style="text-decoration: none"
+              >Start Investing Now</a
+            >
+            <a
+              href="#features"
+              class="btn btn-secondary btn-lg"
+              style="text-decoration: none"
+              >Learn More</a
+            >
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="hero-image">
+            <img src="assets/images/logo.jpeg" width="300" height="300" 
+     style="border-radius: 200px; animation: neonSpin 5s ease-in-out infinite;
+            box-shadow: 0 0 30px var(--neon-cyan), 0 0 60px var(--neon-pink);
+            filter: brightness(1.1);" alt="">
+
+<style>
+@keyframes neonSpin {
+    0% { 
+        transform: rotate(0deg) scale(1);
+        filter: brightness(1) drop-shadow(0 0 10px var(--neon-cyan));
+    }
+    25% { 
+        transform: rotate(180deg) scale(1.1);
+        filter: brightness(1.2) drop-shadow(0 0 20px var(--neon-pink));
+    }
+    50% { 
+        transform: rotate(360deg) scale(1);
+        filter: brightness(1) drop-shadow(0 0 10px var(--neon-green));
+    }
+    75% { 
+        transform: rotate(540deg) scale(1.1);
+        filter: brightness(1.2) drop-shadow(0 0 20px var(--neon-purple));
+    }
+    100% { 
+        transform: rotate(720deg) scale(1);
+        filter: brightness(1) drop-shadow(0 0 10px var(--neon-cyan));
+    }
+}
+</style>
+
+
+            <!-- <svg viewBox="0 0 400 400" fill="none">
+              <rect
+                x="50"
+                y="50"
+                width="300"
+                height="300"
+                rx="20"
+                fill="rgba(16, 185, 129, 0.1)"
+                stroke="rgba(16, 185, 129, 0.3)"
+                stroke-width="2"
+              /> -->
+              <circle
+                cx="200"
+                cy="200"
+                r="100"
+                fill="rgba(16, 185, 129, 0.2)"
+              />
+              <path
+                d="M150 200 L180 150 L210 170 L240 120 L270 200"
+                stroke="rgba(16, 185, 129, 0.8)"
+                stroke-width="3"
+                fill="none"
+              />
+              <circle cx="150" cy="200" r="6" fill="rgba(16, 185, 129, 0.8)" />
+              <circle cx="180" cy="150" r="6" fill="rgba(16, 185, 129, 0.8)" />
+              <circle cx="210" cy="170" r="6" fill="rgba(16, 185, 129, 0.8)" />
+              <circle cx="240" cy="120" r="6" fill="rgba(16, 185, 129, 0.8)" />
+              <circle cx="270" cy="200" r="6" fill="rgba(16, 185, 129, 0.8)" />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+      <div class="site-container features-container">
+        <h2>Platform Features</h2>
+        <p class="section-subtitle">
+          Everything you need for successful crypto investing
+        </p>
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">🔒</div>
+            <h3>Secure & Safe</h3>
+            <p>
+              Bank-level security with JWT authentication and encrypted
+              transactions. Your funds are always protected.
+            </p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">📊</div>
+            <h3>Real-Time Analytics</h3>
+            <p>
+              Live dashboard tracking all investments, balance, profit/loss, and
+              ROI with detailed breakdowns.
+            </p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">💰</div>
+            <h3>Multiple Cryptocurrencies</h3>
+            <p>
+              Invest in Bitcoin, Ethereum, USDT, Binance Coin, Solana, Cardano
+              and more with easy wallet transfers.
+            </p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">📈</div>
+            <h3>Portfolio Management</h3>
+            <p>
+              Manage all your investments in one place. Track performance,
+              withdraw funds, and rebalance easily.
+            </p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🚀</div>
+            <h3>Quick Setup</h3>
+            <p>
+              Create an account in minutes, verify your identity, and start
+              investing immediately with simple onboarding.
+            </p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">💬</div>
+            <h3>24/7 Support</h3>
+            <p>
+              Dedicated support team available round the clock. Create tickets
+              and get help when you need it most.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section id="benefits" class="benefits">
+      <div class="site-container benefits-container">
+        <h2>Why Choose Atlas Capital?</h2>
+        <div class="benefits-grid">
+          <div class="benefit-item">
+            <h3>Transparent Fees</h3>
+            <p>
+              No hidden charges. You see exactly what you're paying and earn
+              clear returns on investment.
+            </p>
+          </div>
+          <div class="benefit-item">
+            <h3>Professional Management</h3>
+            <p>
+              Expert traders and analysts managing your portfolio for optimal
+              returns in any market condition.
+            </p>
+          </div>
+          <div class="benefit-item">
+            <h3>Instant Withdrawals</h3>
+            <p>
+              Withdraw your profits anytime without waiting periods. Fast,
+              secure, and hassle-free process.
+            </p>
+          </div>
+          <div class="benefit-item">
+            <h3>Low Minimum Investment</h3>
+            <p>
+              Start with as little as $10. Perfect for beginners wanting to
+              learn while earning returns.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ROI Section -->
+    <section id="roi" class="roi-section">
+      <div class="site-container roi-container">
+        <h2>Investment Returns</h2>
+        <p class="section-subtitle">
+          Typical ROI based on investment tier and market conditions
+        </p>
+        <div class="roi-grid">
+          <div class="roi-card">
+            <h3>Custom Plan</h3>
+            <div class="roi-amount">Default</div>
+            <p class="roi-period">Per Day</p>
+            <ul class="roi-features">
+              
+              <li>Daily earnings</li>
+            </ul>
+            <br />
+            <a
+              href="auth.html"
+              class="btn btn-secondary"
+              style="text-decoration: none"
+              >Start Now</a
+            >
+          </div>
+          <div class="roi-card">
+            <h3>Bronze Plan</h3>
+            <div class="roi-amount">3%-5%</div>
+            <p class="roi-period">Per Day</p>
+            <ul class="roi-features">
+              <li>Min. Investment: $5000- 20000</li>
+              <li>Perfect for beginners</li>
+              <li>Low risk portfolio</li>
+              <li>Daily earnings</li>
+            </ul>
+            <br />
+            <a
+              href="auth.html"
+              class="btn btn-secondary"
+              style="text-decoration: none"
+              >Start Now</a
+            >
+          </div>
+          <div class="roi-card featured">
+            <div class="roi-badge">Recommended</div>
+            <h3>Silver Plan</h3>
+            <div class="roi-amount">7%-10%</div>
+            <p class="roi-period">Per Day</p>
+            <ul class="roi-features">
+              <li>Min. Investment: $20000-$50000</li>
+              <li>Balanced portfolio</li>
+              <li>Medium risk options</li>
+              <li>Weekly payouts</li>
+            </ul>
+            <br />
+            <a
+              href="auth.html"
+              class="btn btn-primary"
+              style="text-decoration: none"
+              >Get Started</a
+            >
+          </div>
+          <div class="roi-card">
+            <h3>Gold Plan</h3>
+            <div class="roi-amount">10%-13%</div>
+            <p class="roi-period">Per day</p>
+            <ul class="roi-features">
+              <li>Min. Investment: $50000 - $100000</li>
+              <li>Aggressive growth</li>
+              <li>Advanced strategies</li>
+              <li>Priority support</li>
+            </ul>
+            <br />
+            <a
+              href="auth.html"
+              class="btn btn-secondary"
+              style="text-decoration: none"
+              >Invest More</a
+            >
+          </div>
+           <div class="roi-card">
+            <h3>Premium Plan</h3>
+            <div class="roi-amount">13-15%</div>
+            <p class="roi-period">per day</p>
+            <ul class="roi-features">
+              <li>Min. Investment: $100000-$300000</li>
+              <li>Aggressive growth</li>
+              <li>Advanced strategies</li>
+              <li>Priority support</li>
+            </ul>
+            <br />
+            <a
+              href="auth.html"
+              class="btn btn-secondary"
+              style="text-decoration: none"
+              >Invest More</a
+            >
+          </div>
+        </div>
+        <br />
+        <div class="roi-disclaimer">
+          <p>
+            <strong>Disclaimer:</strong> Past performance is not indicative of
+            future results. Cryptocurrency investment carries risk. Please do
+            your own research and invest only what you can afford to lose.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+      <div class="site-container cta-container">
+        <h2>Ready to Start Your Investment Journey?</h2>
+        <p>
+          Join thousands of investors earning passive income with CryptoInvest
+        </p>
+        <br />
+        <a
+          href="auth.html"
+          class="btn btn-primary btn-lg"
+          style="text-decoration: none"
+          >Create Account Today</a
+        >
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="site-container footer-container">
+        <div class="footer-content">
+          <p>&copy; 2024 Atlas Capital. All rights reserved.</p>
+          <div class="footer-links">
+            <a href="#privacy">Privacy Policy</a>
+            <a href="#terms">Terms of Service</a>
+            <a href="#contact">Contact Us</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
+    <!-- Your Firebase configuration -->
+    <script src="BackendDatabaseAuthPH.js"></script>
+
+    <!-- Your home page logic -->
+    <!-- <script src="home.js"></script> -->
+    <script>
+      // Mobile Menu Functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+    
+    console.log('Mobile menu elements:', { 
+        toggle: mobileMenuToggle, 
+        menu: mobileMenu, 
+        overlay: mobileMenuOverlay 
+    }); // Debug: check if elements exist
+    
+    if (!mobileMenuToggle || !mobileMenu || !mobileMenuOverlay) {
+        console.error('Mobile menu elements not found!');
+        return;
+    }
+    
+    // Open/close menu
+    function toggleMobileMenu() {
+        console.log('Toggle menu clicked'); // Debug
+        mobileMenuToggle.classList.toggle('active');
+        mobileMenu.classList.toggle('active');
+        mobileMenuOverlay.classList.toggle('active');
+        document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+    }
+    
+    // Close menu
+    window.closeMobileMenu = function() {
+        console.log('Closing menu'); // Debug
+        mobileMenuToggle.classList.remove('active');
+        mobileMenu.classList.remove('active');
+        mobileMenuOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+    };
+    
+    // Toggle menu on button click
+    mobileMenuToggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        toggleMobileMenu();
+    });
+    
+    // Close menu when clicking overlay
+    mobileMenuOverlay.addEventListener('click', function(e) {
+        e.preventDefault();
+        closeMobileMenu();
+    });
+    
+    // Close menu on escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+            closeMobileMenu();
+        }
+    });
+    
+    // Close menu when clicking a menu item
+    document.querySelectorAll('.mobile-menu-item').forEach(item => {
+        item.addEventListener('click', function() {
+            closeMobileMenu();
+        });
+    });
+    
+    // Handle window resize
+    window.addEventListener('resize', function() {
+        if (window.innerWidth > 768 && mobileMenu.classList.contains('active')) {
+            closeMobileMenu();
+        }
+    });
+});
+    </script>
+  </body>
+</html>
