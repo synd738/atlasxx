@@ -1524,7 +1524,8 @@ async function loadCryptoOptions() {
         { symbol: "USDT", name: "Tether", icon: "₮", class: "usdt" },
         { symbol: "BNB", name: "Binance Coin", icon: "B", class: "bnb" },
         { symbol: "SOL", name: "Solana", icon: "◎", class: "sol" },
-        { symbol: "ADA", name: "Cardano", icon: "₳", class: "ada" }
+        { symbol: "ADA", name: "Cardano", icon: "₳", class: "ada" },
+        { symbol: "TRX", name: "Tron", icon: "", class: "trx"}
     ];
     
     let html = '';

@@ -1533,6 +1533,7 @@
                   <option value="BNB">Binance Coin (BNB)</option>
                   <option value="SOL">Solana (SOL)</option>
                   <option value="ADA">Cardano (ADA)</option>
+                  <option value="TRX">Tron (TRX)</option>
                 </select>
               </div>
 
@@ -1656,7 +1657,7 @@
                     required
                   />
                   <div class="crypto-content">
-                    <div class="crypto-icon btc">₿</div>
+                    <img src="assets/images/bitcoin-svg.webp" alt="BTC" class="crypto-icon BTC">
                     <div class="crypto-info">
                       <div class="crypto-name">Bitcoin</div>
                       <div class="crypto-symbol">BTC</div>
@@ -1719,7 +1720,7 @@
                 <label class="crypto-card">
                   <input type="radio" name="cryptocurrency" value="ETH" />
                   <div class="crypto-content">
-                    <div class="crypto-icon eth">Ξ</div>
+                    <img src="assets/images/etherium.png" alt="ETH" class="crypto-icon ETH">
                     <div class="crypto-info">
                       <div class="crypto-name">Ethereum</div>
                       <div class="crypto-symbol">ETH</div>
@@ -1782,7 +1783,7 @@
                 <label class="crypto-card">
                   <input type="radio" name="cryptocurrency" value="USDT" />
                   <div class="crypto-content">
-                    <div class="crypto-icon usdt">₮</div>
+                    <img src="assets/images/tether-usdt-svg.webp" alt="USDT" class="crypto-icon USDT">
                     <div class="crypto-info">
                       <div class="crypto-name">Tether</div>
                       <div class="crypto-symbol">USDT</div>
@@ -1845,7 +1846,7 @@
                 <label class="crypto-card">
                   <input type="radio" name="cryptocurrency" value="BNB" />
                   <div class="crypto-content">
-                    <div class="crypto-icon bnb">B</div>
+                    <img src="assets/images/bnb.webp" alt="BNB" class="crypto-icon BNB">
                     <div class="crypto-info">
                       <div class="crypto-name">Binance Coin</div>
                       <div class="crypto-symbol">BNB</div>
@@ -1908,7 +1909,7 @@
                 <label class="crypto-card">
                   <input type="radio" name="cryptocurrency" value="SOL" />
                   <div class="crypto-content">
-                    <div class="crypto-icon sol">◎</div>
+                    <img src="assets/images/solana.webp" alt="SOL" class="crypto-icon SOL">
                     <div class="crypto-info">
                       <div class="crypto-name">Solana</div>
                       <div class="crypto-symbol">SOL</div>
@@ -1967,11 +1968,74 @@
                   </div>
                 </label>
 
+                <!-- Tron -->
+                <label class="crypto-card">
+                  <input type="radio" name="cryptocurrency" value="TRX" />
+                  <div class="crypto-content">
+                    <img src="assets/images/tron.webp" alt="TRX" class="crypto-icon TRX">
+                    <div class="crypto-info">
+                      <div class="crypto-name">Tron</div>
+                      <div class="crypto-symbol">TRX</div>
+                    </div>
+                    <div class="crypto-check">
+                      <svg
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                      >
+                        <polyline
+                          points="20 6 9 17 4 12"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                  <div class="crypto-wallet-display" id="wallet-TRX">
+                    <small>Send payment to:</small>
+                    <div class="wallet-address-box">
+                      <span class="wallet-address" data-address=""
+                        >Not configured</span
+                      >
+                      <button
+                        type="button"
+                        class="copy-wallet-btn"
+                        onclick="copyWalletAddress('TRX')"
+                      >
+                        <svg
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                        >
+                          <rect
+                            x="9"
+                            y="9"
+                            width="13"
+                            height="13"
+                            rx="2"
+                            ry="2"
+                            stroke-width="2"
+                          />
+                          <path
+                            d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                            stroke-width="2"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </label>
+
                 <!-- Cardano -->
                 <label class="crypto-card">
                   <input type="radio" name="cryptocurrency" value="ADA" />
                   <div class="crypto-content">
-                    <div class="crypto-icon ada">₳</div>
+                    <img src="assets/images/cardano.webp" alt="ADA" class="crypto-icon ADA">
                     <div class="crypto-info">
                       <div class="crypto-name">Cardano</div>
                       <div class="crypto-symbol">ADA</div>
